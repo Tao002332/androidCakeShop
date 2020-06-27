@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:onClick="rollback"
+        android:src="@mipmap/allow_left"
+        android:id="@+id/iv_rollback"
+        />
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:layout_centerHorizontal="true"
+        android:text="设置"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_rollback"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:text="编辑个人信息"
+            android:onClick="toEditUserInfo"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#D54D4D"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:text="退出登录"
+            android:onClick="logout"
+            />
+    </LinearLayout>
+
+
+
+</RelativeLayout>

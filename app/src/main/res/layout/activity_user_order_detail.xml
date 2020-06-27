@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:onClick="rollback"
+        android:src="@mipmap/allow_left"
+        android:id="@+id/iv_rollback"
+        />
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:layout_toRightOf="@id/iv_rollback"
+        android:text="订单详情"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/iv_rollback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rlv"
+        />
+
+
+</RelativeLayout>

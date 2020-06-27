@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="rollback"
+            android:src="@mipmap/allow_left"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="添加收货地址"
+            android:textSize="20dp"
+            android:id="@+id/tv_title"
+            />
+
+    </LinearLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_name"
+        android:hint="预留姓名"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_phone"
+        android:inputType="phone"
+        android:hint="预留电话"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_address"
+        android:hint="预留地址"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="savePreInfo"
+        android:text="提交"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_delete"
+        android:visibility="gone"
+        android:onClick="deletePreInfo"
+        android:text="删除"
+        />
+</LinearLayout>
