@@ -76,7 +76,7 @@ public class CartRvAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view=layoutInflater.inflate(R.layout.cart_item,parent,false);
-        return new MyViewHodle(view);
+        return new MyViewHodler(view);
     }
 
     /**
@@ -87,7 +87,7 @@ public class CartRvAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final Cart cart = list.get(position);
-        final MyViewHodle holder1 = (MyViewHodle) holder;
+        final MyViewHodler holder1 = (MyViewHodler) holder;
         String imgPath = cart.getProduct_img();
         holderImg=holder1.iv_img;
         new AnotherTask().execute(imgPath);
@@ -174,7 +174,7 @@ public class CartRvAdapter extends RecyclerView.Adapter {
     /**
      * 视图占位
      */
-    public class MyViewHodle extends RecyclerView.ViewHolder {
+    public class MyViewHodler extends RecyclerView.ViewHolder {
         TextView tv_title;
         ImageView iv_img;
         ImageView iv_up;
@@ -184,7 +184,7 @@ public class CartRvAdapter extends RecyclerView.Adapter {
         TextView tv_origin_price;
         CheckBox cb_item;
 
-        public MyViewHodle(@NonNull View itemView) {
+        public MyViewHodler(@NonNull View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_num = itemView.findViewById(R.id.tv_num);
