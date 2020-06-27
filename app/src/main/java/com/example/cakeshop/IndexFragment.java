@@ -17,7 +17,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cakeshop.adapter.ProductSPURvAdapter;
+import com.example.cakeshop.api.SpuApi;
 import com.example.cakeshop.layout.BidirSlidingLayout;
+import com.example.cakeshop.pojo.ProductSPU;
+import com.example.cakeshop.pojo.result.ResultSpu;
+import com.example.cakeshop.pojo.result.ResultToken;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.IOException;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * created by guigui
@@ -30,13 +44,9 @@ public class IndexFragment extends Fragment {
 
     private BidirSlidingLayout bidirSldingLayout;
 
-    /**
-     * 在内容布局上显示的RecyclerView
-     */
     private RecyclerView rlv;
 
-
-
+    private ProductSPURvAdapter adapter;
 
 
     /**
@@ -50,14 +60,57 @@ public class IndexFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.index_fragment, null);
-        bidirSldingLayout=view.findViewById(R.id.bidir_sliding_layout);
-        rlv=view.findViewById(R.id.rlv);
-        bidirSldingLayout.setScrollEvent(rlv);
+        initUI(view);
         return view;
     }
 
-    private void binderData() {
+    private void initUI(View view) {
+        bidirSldingLayout=view.findViewById(R.id.bidir_sliding_layout);
+        rlv=view.findViewById(R.id.rlv);
+        fetchData();
+    }
+
+    private void fetchData() {
+        ProductSPU spu = new ProductSPU();
+        SpuApi.search(spu, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String jsonData = response.body().string();
+                parseJSONWithSPU(jsonData);
+            }
+        });
+    }
+
+
+    /**
+     * 解析json  获取spu
+     * @param jsonData
+     */
+    private void parseJSONWithSPU(String jsonData){
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        final ResultSpu resultSpu = gson.fromJson(jsonData, ResultSpu.class);
+        if (resultSpu.isFlag()) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    binderData(resultSpu.getData());
+                }
+            });
+        }
+    }
+
+
+
+    private void binderData(List<ProductSPU> list) {
+        adapter=new ProductSPURvAdapter(list,getContext());
         rlv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rlv.setAdapter(adapter);
+        bidirSldingLayout.setScrollEvent(rlv);
     }
 
 }

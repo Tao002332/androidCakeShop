@@ -17,11 +17,11 @@ public class OrderDetail implements Serializable {
     private Date created_at;
     private Date updated_at;
 
-    private int order_id;
-    private int sku_id;
+    private Integer order_id;
+    private Integer sku_id;
 
-    private int num;
-    private double price;
+    private Integer num;
+    private Double price;
 
     private String product_title;
 

@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cakeshop.R;
 import com.example.cakeshop.dao.CartDao;
 import com.example.cakeshop.pojo.Cart;
+import com.example.cakeshop.utils.AnotherTask;
 import com.example.cakeshop.utils.ImgDownload;
 
 import java.util.LinkedList;
@@ -39,7 +40,6 @@ public class CartRvAdapter extends RecyclerView.Adapter {
     private List<Cart> list;
     private Context context;
     private LayoutInflater layoutInflater;
-    private ImageView holderImg;
     private List<Cart> checkedList;
     private Callback callback;
     private CartDao cartDao;
@@ -88,9 +88,8 @@ public class CartRvAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final Cart cart = list.get(position);
         final MyViewHodler holder1 = (MyViewHodler) holder;
-        String imgPath = cart.getProduct_img();
-        holderImg=holder1.iv_img;
-        new AnotherTask().execute(imgPath);
+        String url = cart.getProduct_img();
+        new AnotherTask(holder1.iv_img).execute(url);
         holder1.tv_title.setText(cart.getProduct_title());
         holder1.tv_num.setText(cart.getNum()+"");
         holder1.tv_price.setText(cart.getPrice()+"");
@@ -194,22 +193,6 @@ public class CartRvAdapter extends RecyclerView.Adapter {
             iv_up = itemView.findViewById(R.id.iv_up);
             iv_down = itemView.findViewById(R.id.iv_down);
             cb_item = itemView.findViewById(R.id.cb_item);
-        }
-    }
-
-    /**
-     * 异步任务
-     */
-    private class AnotherTask extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            return ImgDownload.getBitmapByUrl(strings[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            holderImg.setImageBitmap(bitmap);
         }
     }
 

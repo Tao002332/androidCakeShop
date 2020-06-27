@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.example.cakeshop.R;
 import com.example.cakeshop.pojo.OrderDetail;
+import com.example.cakeshop.utils.AnotherTask;
 import com.example.cakeshop.utils.ImgDownload;
 
 import java.util.List;
@@ -32,7 +33,6 @@ public class OrderDetailRvAdapter extends RecyclerView.Adapter {
     private List<OrderDetail> list;
     private Context context;
     private LayoutInflater layoutInflater;
-    private ImageView holderImg;
 
     public List<OrderDetail> getList() {
         return list;
@@ -55,9 +55,8 @@ public class OrderDetailRvAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         OrderDetail od=list.get(position);
         MyViewHodler holder1=(MyViewHodler)holder;
-        String imgPath= od.getProduct_img();
-        holderImg=holder1.iv_img;
-        new AnotherTask().execute(imgPath);
+        String url= od.getProduct_img();
+        new AnotherTask(holder1.iv_img).execute(url);
         holder1.tv_title.setText(od.getProduct_title());
         holder1.tv_num.setText(od.getNum()+"");
         holder1.tv_price.setText(od.getPrice()+"");
@@ -79,23 +78,6 @@ public class OrderDetailRvAdapter extends RecyclerView.Adapter {
             tv_title=itemView.findViewById(R.id.tv_title);
             tv_num=itemView.findViewById(R.id.tv_num);
             tv_price=itemView.findViewById(R.id.tv_price);
-        }
-    }
-
-
-    /**
-     * 异步任务
-     */
-    private class AnotherTask extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            return ImgDownload.getBitmapByUrl(strings[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            holderImg.setImageBitmap(bitmap);
         }
     }
 

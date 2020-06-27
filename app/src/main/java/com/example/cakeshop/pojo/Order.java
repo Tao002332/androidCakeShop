@@ -15,16 +15,16 @@ import java.util.List;
  */
 public class Order implements Serializable {
 
-    private  int id;
+    private  Integer id;
     private  String  order_no;
-    private  int user_id;
-    private  int order_status;
-    private  double product_money;
-    private  int deliver_type;
+    private  Integer user_id;
+    private  Integer order_status;
+    private  Double product_money;
+    private  Integer deliver_type;
     private  String recevicer;
     private  String recevicer_address;
     private  String recevicer_phone;
-    private  int data_flag;
+    private  Integer data_flag;
     private Date created_at;
     private Date updated_at;
 

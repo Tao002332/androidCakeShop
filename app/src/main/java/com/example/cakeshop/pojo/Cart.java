@@ -11,15 +11,15 @@ import java.io.Serializable;
  * 购物车实体类
  */
 public class Cart implements Serializable {
-    private int sku_id;
-    private  int num;
-    private double price;
+    private Integer sku_id;
+    private  Integer num;
+    private Double price;
     private  String product_title;
     private  String product_img;
-    private int spu_id;
-    private double origin_price;
-    private double discount;
-    private boolean isChecked;
+    private Integer spu_id;
+    private Double origin_price;
+    private Double discount;
+    private Boolean isChecked;
 
 
     public Cart() {

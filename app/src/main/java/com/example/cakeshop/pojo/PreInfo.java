@@ -11,8 +11,8 @@ import java.io.Serializable;
  * 预留信息实体类
  */
 public class PreInfo implements Serializable {
-    private  int id;
-    private  int user_id;
+    private  Integer id;
+    private  Integer user_id;
     private String nickname;
     private String phone;
     private String address;
