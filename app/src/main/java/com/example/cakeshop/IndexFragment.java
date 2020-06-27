@@ -58,7 +58,6 @@ public class IndexFragment extends Fragment {
 
     private void binderData() {
         rlv.setLayoutManager(new LinearLayoutManager(getContext()));
-
     }
 
 }
