@@ -2,14 +2,10 @@ package com.example.cakeshop;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,12 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cakeshop.adapter.ProductSPURvAdapter;
+import com.example.cakeshop.adapter.CateRvAdapter;
+import com.example.cakeshop.adapter.SpuRvAdapter;
+import com.example.cakeshop.api.CateApi;
 import com.example.cakeshop.api.SpuApi;
 import com.example.cakeshop.layout.BidirSlidingLayout;
+import com.example.cakeshop.pojo.Cate;
 import com.example.cakeshop.pojo.ProductSPU;
+import com.example.cakeshop.pojo.result.ResultCate;
 import com.example.cakeshop.pojo.result.ResultSpu;
-import com.example.cakeshop.pojo.result.ResultToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -44,9 +43,15 @@ public class IndexFragment extends Fragment {
 
     private BidirSlidingLayout bidirSldingLayout;
 
-    private RecyclerView rlv;
+    private RecyclerView content_rlv;
+    private RecyclerView left_rlv;
 
-    private ProductSPURvAdapter adapter;
+    private  EditText et_search;
+    private  ImageView iv_search;
+
+    private SpuRvAdapter spuRvAdapter;
+    private CateRvAdapter cateRvAdapter;
+    private ProductSPU spu;
 
 
     /**
@@ -65,13 +70,90 @@ public class IndexFragment extends Fragment {
     }
 
     private void initUI(View view) {
+        spu = new ProductSPU();
         bidirSldingLayout=view.findViewById(R.id.bidir_sliding_layout);
-        rlv=view.findViewById(R.id.rlv);
+        content_rlv=view.findViewById(R.id.content_rlv);
+        bidirSldingLayout.setScrollEvent(content_rlv);
+        left_rlv=view.findViewById(R.id.left_rlv);
+        et_search =view.findViewById(R.id.et_search);
+        iv_search =view.findViewById(R.id.iv_search);
+        iv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fetchData();
+            }
+        });
+        fetchLeftData();
         fetchData();
     }
 
+    /**
+     * 获取左侧数据
+     */
+    private void fetchLeftData() {
+        CateApi.findAll(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println(e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String jsonData = response.body().string();
+                parseJSONWithCate(jsonData);
+            }
+        });
+    }
+
+    /**
+     * 解析json  获取cate
+     * @param jsonData
+     */
+    private void parseJSONWithCate(String jsonData){
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        final ResultCate resultCate = gson.fromJson(jsonData, ResultCate.class);
+        if (resultCate.isFlag()) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    binderLeftData(resultCate.getData());
+                }
+            });
+        }
+    }
+
+
+
+    /**
+     * 绑定左侧分类 数据
+     */
+    private void  binderLeftData(List<Cate> list) {
+        cateRvAdapter=new CateRvAdapter(list, getContext(), new CateRvAdapter.Callback() {
+            @Override
+            public void updateContentData(Integer id) {
+                spu.setCate_id(id);
+                fetchData();
+            }
+        });
+        left_rlv.setLayoutManager(new LinearLayoutManager(getContext()));
+        left_rlv.setAdapter(cateRvAdapter);
+    }
+
+
+    /**
+     * 条件查询
+     */
+    private void searchCondition(){
+        String keyword = et_search.getText().toString().trim();
+        spu.setKeyword("".equals(keyword)?null:keyword);
+    }
+
+
+    /**
+     * 获取主页信息
+     */
     private void fetchData() {
-        ProductSPU spu = new ProductSPU();
+        searchCondition();
         SpuApi.search(spu, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -105,12 +187,14 @@ public class IndexFragment extends Fragment {
     }
 
 
-
+    /**
+     * 绑定主页 数据
+     * @param list
+     */
     private void binderData(List<ProductSPU> list) {
-        adapter=new ProductSPURvAdapter(list,getContext());
-        rlv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rlv.setAdapter(adapter);
-        bidirSldingLayout.setScrollEvent(rlv);
+        spuRvAdapter=new SpuRvAdapter(list,getContext());
+        content_rlv.setLayoutManager(new LinearLayoutManager(getContext()));
+        content_rlv.setAdapter(spuRvAdapter);
     }
 
 }

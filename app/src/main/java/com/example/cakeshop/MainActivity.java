@@ -21,6 +21,11 @@ public class MainActivity extends FragmentActivity {
 
     private FragmentManager fm;
     private FragmentTransaction ft;
+    private IndexFragment indexFragment= new IndexFragment();
+    private OrderSearchFragment orderSearchFragment= new OrderSearchFragment();
+    private CartFragment cartFragment= new CartFragment();
+    private UserFragment userFragment= new UserFragment();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +33,17 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         fm=getSupportFragmentManager();
-        changeFragment(new IndexFragment());
+        changeFragment(indexFragment);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
-            case ResultFragmentCode.INDEX: changeFragment(new IndexFragment());break;
-            case ResultFragmentCode.ORDER_SEARCH: changeFragment(new OrderSearchFragment());break;
-            case ResultFragmentCode.CART: changeFragment(new CartFragment());break;
-            case ResultFragmentCode.USER: changeFragment(new UserFragment());break;
+            case ResultFragmentCode.INDEX: changeFragment(indexFragment);break;
+            case ResultFragmentCode.ORDER_SEARCH: changeFragment(orderSearchFragment);break;
+            case ResultFragmentCode.CART: changeFragment(cartFragment);break;
+            case ResultFragmentCode.USER: changeFragment(userFragment);break;
             default:break;
         }
     }
@@ -59,7 +64,7 @@ public class MainActivity extends FragmentActivity {
      * @param view
      */
     public void toIndex(View view) {
-        changeFragment(new IndexFragment());
+        changeFragment(indexFragment);
     }
 
     /**
@@ -67,7 +72,7 @@ public class MainActivity extends FragmentActivity {
      * @param view
      */
     public void toOrderSearch(View view) {
-        changeFragment(new OrderSearchFragment());
+        changeFragment(orderSearchFragment);
     }
 
     /**
@@ -75,7 +80,7 @@ public class MainActivity extends FragmentActivity {
      * @param view
      */
     public void toCart(View view) {
-        changeFragment(new CartFragment());
+        changeFragment(cartFragment);
     }
 
     /**
@@ -83,7 +88,7 @@ public class MainActivity extends FragmentActivity {
      * @param view
      */
     public void toUser(View view) {
-        changeFragment(new UserFragment());
+        changeFragment(userFragment);
     }
 
 }

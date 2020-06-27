@@ -28,14 +28,14 @@ import java.util.List;
 /**
  *  商品SPU recyclerView的 适配器
  */
-public class ProductSPURvAdapter extends RecyclerView.Adapter {
+public class SpuRvAdapter extends RecyclerView.Adapter {
 
     private List<ProductSPU> list;
     private Context context;
     private LayoutInflater layoutInflater;
 
 
-    public ProductSPURvAdapter(List<ProductSPU> list, Context context) {
+    public SpuRvAdapter(List<ProductSPU> list, Context context) {
         this.list = list;
         this.context = context;
         this.layoutInflater=LayoutInflater.from(context);
