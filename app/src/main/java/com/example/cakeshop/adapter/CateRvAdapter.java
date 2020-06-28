@@ -42,13 +42,13 @@ public class CateRvAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view=layoutInflater.inflate(R.layout.cate_item,parent,false);
-        return new MyViewHodler(view);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final Cate cate = list.get(position);
-        MyViewHodler hodler1= (MyViewHodler) holder;
+        MyViewHolder hodler1= (MyViewHolder) holder;
         hodler1.tv_title.setText(cate.getTitle());
         hodler1.tv_title.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,9 +73,9 @@ public class CateRvAdapter extends RecyclerView.Adapter {
     }
 
 
-    public class MyViewHodler extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_title;
-        public MyViewHodler(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
         }

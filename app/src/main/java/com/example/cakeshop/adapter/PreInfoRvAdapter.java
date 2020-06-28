@@ -43,13 +43,13 @@ public class PreInfoRvAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view=layoutInflater.inflate(R.layout.preinfo_item,parent,false);
-        return new MyViewHodler(view);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         final PreInfo preInfo = list.get(position);
-        final MyViewHodler holder1 = (MyViewHodler) holder;
+        final MyViewHolder holder1 = (MyViewHolder) holder;
         holder1.tv_name.setText(preInfo.getNickname());
         holder1.tv_phone.setText(preInfo.getPhone());
         holder1.tv_address.setText(preInfo.getAddress());
@@ -79,13 +79,13 @@ public class PreInfoRvAdapter extends RecyclerView.Adapter {
         return list.size();
     }
 
-    public class MyViewHodler extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name;
         TextView tv_phone;
         TextView tv_address;
         TextView tv_edit;
         View view;
-        public MyViewHodler(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_name=itemView.findViewById(R.id.tv_name);
             tv_phone=itemView.findViewById(R.id.tv_phone);

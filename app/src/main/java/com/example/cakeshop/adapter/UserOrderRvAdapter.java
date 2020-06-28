@@ -42,13 +42,13 @@ public class UserOrderRvAdapter  extends RecyclerView.Adapter{
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view=layoutInflater.inflate(R.layout.order_item,parent,false);
-        return new MyViewHodler(view);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final Order order = list.get(position);
-        MyViewHodler holder1 = (MyViewHodler) holder;
+        MyViewHolder holder1 = (MyViewHolder) holder;
         holder1.tv_order_no.setText(order.getOrder_no());
         holder1.tv_product_money.setText(order.getProduct_money()+"");
         holder1.tv_created_at.setText(order.getCreated_at());
@@ -94,14 +94,14 @@ public class UserOrderRvAdapter  extends RecyclerView.Adapter{
     }
 
 
-    public class MyViewHodler extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv_order_no;
         TextView tv_product_money;
         TextView tv_created_at;
         TextView tv_show;
         View view;
 
-        public MyViewHodler(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_order_no=itemView.findViewById(R.id.tv_order_no);
             tv_product_money=itemView.findViewById(R.id.tv_product_money);

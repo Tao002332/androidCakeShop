@@ -27,6 +27,7 @@
         <activity android:name=".activity.EditUserActivity"></activity>
         <activity android:name=".activity.UserOrderActivity"></activity>
         <activity android:name=".activity.UserOrderDetailActivity"></activity>
+        <activity android:name=".activity.SpuInfoActivity"></activity>
     </application>
 
 </manifest>

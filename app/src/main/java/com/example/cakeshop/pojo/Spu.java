@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * spu 实体
  */
-public class ProductSPU implements Serializable {
+public class Spu implements Serializable {
     private Integer id;
     private Date created_at;
     private Date updated_at;
@@ -36,16 +36,18 @@ public class ProductSPU implements Serializable {
         this.id = id;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public String getCreated_at() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ");
+        return formatter.format(created_at);
     }
 
     public void setCreated_at(Date created_at) {
         this.created_at = created_at;
     }
 
-    public Date getUpdated_at() {
-        return updated_at;
+    public String getUpdated_at() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ");
+        return formatter.format(updated_at);
     }
 
     public void setUpdated_at(Date updated_at) {
@@ -108,16 +110,18 @@ public class ProductSPU implements Serializable {
         this.price = price;
     }
 
-    public Date getPd() {
-        return pd;
+    public String getPd() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ");
+        return formatter.format(pd);
     }
 
     public void setPd(Date pd) {
         this.pd = pd;
     }
 
-    public Date getExpd() {
-        return expd;
+    public String getExpd() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ");
+        return formatter.format(expd);
     }
 
     public void setExpd(Date expd) {
@@ -142,7 +146,7 @@ public class ProductSPU implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductSPU{" +
+        return "Spu{" +
                 "id=" + id +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +

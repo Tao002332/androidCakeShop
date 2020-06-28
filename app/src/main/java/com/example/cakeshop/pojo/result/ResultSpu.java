@@ -1,6 +1,6 @@
 package com.example.cakeshop.pojo.result;
 
-import com.example.cakeshop.pojo.ProductSPU;
+import com.example.cakeshop.pojo.Spu;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class ResultSpu {
     private int code;
     private boolean flag;
     private String message;
-    private List<ProductSPU> data;
+    private List<Spu> data;
 
     public int getCode() {
         return code;
@@ -46,11 +46,11 @@ public class ResultSpu {
         this.message = message;
     }
 
-    public List<ProductSPU> getData() {
+    public List<Spu> getData() {
         return data;
     }
 
-    public void setData(List<ProductSPU> data) {
+    public void setData(List<Spu> data) {
         this.data = data;
     }
 }

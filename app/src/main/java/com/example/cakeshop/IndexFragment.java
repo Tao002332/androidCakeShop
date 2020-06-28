@@ -20,7 +20,7 @@ import com.example.cakeshop.api.CateApi;
 import com.example.cakeshop.api.SpuApi;
 import com.example.cakeshop.layout.BidirSlidingLayout;
 import com.example.cakeshop.pojo.Cate;
-import com.example.cakeshop.pojo.ProductSPU;
+import com.example.cakeshop.pojo.Spu;
 import com.example.cakeshop.pojo.result.ResultCate;
 import com.example.cakeshop.pojo.result.ResultSpu;
 import com.google.gson.Gson;
@@ -52,7 +52,7 @@ public class IndexFragment extends Fragment {
 
     private SpuRvAdapter spuRvAdapter;
     private CateRvAdapter cateRvAdapter;
-    private ProductSPU spu;
+    private Spu spu;
 
 
     /**
@@ -71,7 +71,7 @@ public class IndexFragment extends Fragment {
     }
 
     private void initUI(View view) {
-        spu = new ProductSPU();
+        spu = new Spu();
         bidirSldingLayout=view.findViewById(R.id.bidir_sliding_layout);
         content_rlv=view.findViewById(R.id.content_rlv);
         bidirSldingLayout.setScrollEvent(content_rlv);
@@ -192,7 +192,7 @@ public class IndexFragment extends Fragment {
      * 绑定主页 数据
      * @param list
      */
-    private void binderData(List<ProductSPU> list) {
+    private void binderData(List<Spu> list) {
         spuRvAdapter=new SpuRvAdapter(list,getContext());
         if (list.size()%2==0) {
             content_rlv.setLayoutManager(new GridLayoutManager(getContext(),2));

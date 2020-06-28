@@ -48,13 +48,13 @@ public class OrderDetailRvAdapter extends RecyclerView.Adapter {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view=layoutInflater.inflate(R.layout.order_detail_item,parent,false);
-        return new MyViewHodler(view);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         OrderDetail od=list.get(position);
-        MyViewHodler holder1=(MyViewHodler)holder;
+        MyViewHolder holder1=(MyViewHolder)holder;
         String url= od.getProduct_img();
         new AnotherTask(holder1.iv_img).execute(url);
         holder1.tv_title.setText(od.getProduct_title());
@@ -67,12 +67,12 @@ public class OrderDetailRvAdapter extends RecyclerView.Adapter {
         return list.size();
     }
 
-    public class MyViewHodler extends ViewHolder {
+    public class MyViewHolder extends ViewHolder {
         TextView tv_title;
         ImageView iv_img;
         TextView tv_num;
         TextView  tv_price;
-        public MyViewHodler(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_img=itemView.findViewById(R.id.iv_img);
             tv_title=itemView.findViewById(R.id.tv_title);

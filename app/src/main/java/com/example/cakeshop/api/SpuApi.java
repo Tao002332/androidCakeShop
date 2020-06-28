@@ -1,6 +1,6 @@
 package com.example.cakeshop.api;
 
-import com.example.cakeshop.pojo.ProductSPU;
+import com.example.cakeshop.pojo.Spu;
 import com.example.cakeshop.utils.HttpUtil;
 
 import okhttp3.Callback;
@@ -24,7 +24,7 @@ public class SpuApi {
      * @param spu
      * @param callback
      */
-    public static void search(ProductSPU spu, Callback callback) {
+    public static void search(Spu spu, Callback callback) {
         String url=GROUP_NAME+API_NAME+"/search";
         HttpUtil.enqueuePost(url,spu,callback);
     }
