@@ -38,6 +38,8 @@
             android:orientation="vertical"
             android:visibility="visible"
             android:id="@+id/is_not_login"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             >
             <EditText
                 android:layout_width="200dp"
