@@ -147,6 +147,7 @@ public class IndexFragment extends Fragment {
     private void searchCondition(){
         String keyword = et_search.getText().toString().trim();
         spu.setKeyword("".equals(keyword)?null:keyword);
+        spu.setData_flag(1);
     }
 
 
