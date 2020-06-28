@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#fff"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:onClick="rollback"
+        android:src="@mipmap/allow_left"
+        android:id="@+id/iv_rollback"
+        />
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:layout_centerHorizontal="true"
+        android:text="用户注册"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/iv_rollback">
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_user_name"
+            android:hint="登录名称"/>
+        <EditText
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/et_user_name"
+            android:id="@+id/et_password"
+            android:inputType="textPassword"
+            android:layout_height="wrap_content"
+            android:hint="密码"/>
+        <EditText
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:id="@+id/et_check_password"
+            android:layout_below="@id/et_password"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="确认密码"/>
+        <EditText
+            android:layout_width="300dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/et_check_password"
+            android:id="@+id/et_email"
+            android:layout_height="wrap_content"
+            android:hint="邮箱"/>
+        <Button
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="50dp"
+            android:background="#4DAC53"
+            android:textColor="#fff"
+            android:textSize="25dp"
+            android:onClick="toRegister"
+            android:text="提交"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

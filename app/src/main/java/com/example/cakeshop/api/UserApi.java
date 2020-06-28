@@ -63,4 +63,15 @@ public class UserApi {
     }
 
 
+    /**
+     * 注册用户
+     * @param user
+     * @param callback
+     */
+    public static  void register(User user,Callback callback) {
+        String url=GROUP_NAME+API_NAME+"/register";
+        HttpUtil.enqueuePost(url,user,callback);
+    }
+
+
 }

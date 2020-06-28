@@ -63,6 +63,7 @@
             android:layout_weight="10"
             android:layout_height="120dp"
             android:orientation="vertical"
+            android:id="@+id/has_size"
             >
 
             <LinearLayout
@@ -74,24 +75,38 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_name"
-                    android:text="guigui"
+                    android:text=""
                     />
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_phone"
-                    android:text="1320502386"
+                    android:text=""
                     />
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_address"
-                android:text="湖北荆门"
+                android:text=""
                 />
         </LinearLayout>
-
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:layout_height="120dp"
+            android:visibility="gone"
+            android:id="@+id/not_size"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="请添加预留信息"
+                />
+        </LinearLayout>
         <ImageView
             android:layout_width="0dp"
             android:layout_weight="1"

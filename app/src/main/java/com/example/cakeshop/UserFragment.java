@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.cakeshop.activity.PreInfoActivity;
+import com.example.cakeshop.activity.RegisterActivity;
 import com.example.cakeshop.activity.SettingActivity;
 import com.example.cakeshop.activity.UserOrderActivity;
 import com.example.cakeshop.api.UserApi;
@@ -87,6 +88,7 @@ public class UserFragment extends Fragment {
         to_preinfo=view.findViewById(R.id.to_preinfo);
         to_order_search=view.findViewById(R.id.to_order_search);
         tv_nickname = view.findViewById(R.id.tv_nickname);
+        Button btn_register=view.findViewById(R.id.btn_register);
         Button btn_login= view.findViewById(R.id.btn_login);
         iv_show_pwd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +117,13 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 toLogin();
+            }
+        });
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getContext(), RegisterActivity.class);
+                startActivityForResult(intent,ResultActivityCode.TO_NEXT_ACTIVITY);
             }
         });
         to_preinfo.setOnClickListener(new View.OnClickListener() {

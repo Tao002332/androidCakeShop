@@ -28,6 +28,7 @@
         <activity android:name=".activity.UserOrderActivity"></activity>
         <activity android:name=".activity.UserOrderDetailActivity"></activity>
         <activity android:name=".activity.SpuInfoActivity"></activity>
+        <activity android:name=".activity.RegisterActivity"></activity>
     </application>
 
 </manifest>

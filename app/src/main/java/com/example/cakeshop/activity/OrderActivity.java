@@ -53,6 +53,8 @@ public class OrderActivity extends Activity {
 
     private RecyclerView rlv;
     private LinearLayout is_not_login;
+    private LinearLayout has_size;
+    private LinearLayout not_size;
     private EditText et_name;
     private EditText et_phone;
     private EditText et_address;
@@ -80,6 +82,8 @@ public class OrderActivity extends Activity {
        cartDao=new CartDao(this);
        is_not_login=findViewById(R.id.is_not_login);
        et_name=findViewById(R.id.et_name);
+       has_size=findViewById(R.id.has_size);
+       not_size=findViewById(R.id.not_size);
        et_phone=findViewById(R.id.et_phone);
        et_address=findViewById(R.id.et_address);
        is_login=findViewById(R.id.is_login);
@@ -127,15 +131,27 @@ public class OrderActivity extends Activity {
         Gson gson = new Gson();
         ResultPreInfo resultPreInfo = gson.fromJson(jsonData, ResultPreInfo.class);
         if(resultPreInfo.isFlag()) {
-            final PreInfo preInfo = resultPreInfo.getData().get(0);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    tv_name.setText(preInfo.getNickname());
-                    tv_phone.setText(preInfo.getPhone());
-                    tv_address.setText(preInfo.getAddress());
-                }
-            });
+            List<PreInfo> preInfoList = resultPreInfo.getData();
+            if (preInfoList.size() > 0 ) {
+                final PreInfo preInfo = preInfoList.get(0);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tv_name.setText(preInfo.getNickname());
+                        tv_phone.setText(preInfo.getPhone());
+                        tv_address.setText(preInfo.getAddress());
+                    }
+                });
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        not_size.setVisibility(View.VISIBLE);
+                        has_size.setVisibility(View.GONE);
+                    }
+                });
+            }
+
         }
     }
 
