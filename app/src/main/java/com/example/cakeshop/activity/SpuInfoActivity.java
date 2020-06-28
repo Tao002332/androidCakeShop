@@ -64,6 +64,7 @@ public class SpuInfoActivity extends Activity {
         tv_discount=findViewById(R.id.tv_discount);
         tv_pd=findViewById(R.id.tv_pd);
         tv_expd=findViewById(R.id.tv_expd);
+        rlv=findViewById(R.id.rlv);
         fetchData();
     }
 
@@ -120,7 +121,6 @@ public class SpuInfoActivity extends Activity {
         cart.setProduct_img(spu.getImg());
         cart.setChecked(true);
         rlv.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
 

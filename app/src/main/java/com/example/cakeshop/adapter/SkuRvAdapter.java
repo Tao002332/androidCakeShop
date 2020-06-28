@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cakeshop.R;
+import com.example.cakeshop.pojo.Attribute;
 import com.example.cakeshop.pojo.Sku;
 import com.google.gson.Gson;
 
@@ -43,7 +44,9 @@ public class SkuRvAdapter extends RecyclerView.Adapter {
         MyViewHolder holder1= (MyViewHolder) holder;
         Sku sku = list.get(position);
         Gson gson=new Gson();
-
+        Attribute attribute = gson.fromJson(sku.getAttribute_list(), Attribute.class);
+//        String skuInfo=attribute.getSizeTitle();
+//        holder1.tv_skuinfo.setText(skuInfo);
     }
 
     @Override

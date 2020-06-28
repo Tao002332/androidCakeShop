@@ -17,6 +17,7 @@ public class Sku implements Serializable {
     private String attribute_list;
     private Integer data_flag;
 
+
     public Integer getId() {
         return id;
     }
