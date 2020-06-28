@@ -38,27 +38,27 @@ public class Cart implements Serializable {
     }
 
 
-    public int getSku_id() {
+    public Integer getSku_id() {
         return sku_id;
     }
 
-    public void setSku_id(int sku_id) {
+    public void setSku_id(Integer sku_id) {
         this.sku_id = sku_id;
     }
 
-    public int getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(int num) {
+    public void setNum(Integer num) {
         this.num = num;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -78,38 +78,37 @@ public class Cart implements Serializable {
         this.product_img = product_img;
     }
 
-    public int getSpu_id() {
+    public Integer getSpu_id() {
         return spu_id;
     }
 
-    public void setSpu_id(int spu_id) {
+    public void setSpu_id(Integer spu_id) {
         this.spu_id = spu_id;
     }
 
-    public double getOrigin_price() {
+    public Double getOrigin_price() {
         return origin_price;
     }
 
-    public void setOrigin_price(double origin_price) {
+    public void setOrigin_price(Double origin_price) {
         this.origin_price = origin_price;
     }
 
-    public double getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(double discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 
-    public boolean getChecked() {
+    public Boolean getChecked() {
         return isChecked;
     }
 
-    public void setChecked(boolean checked) {
+    public void setChecked(Boolean checked) {
         isChecked = checked;
     }
-
 
     @Override
     public String toString() {

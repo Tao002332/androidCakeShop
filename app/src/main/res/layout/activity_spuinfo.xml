@@ -9,10 +9,12 @@
         android:layout_height="200dp"
         android:src="@mipmap/user"
         android:id="@+id/iv_img"
+        android:layout_marginBottom="3dp"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:id="@+id/tv_title"
         android:text="商品名称"
         android:gravity="center"
@@ -21,6 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:id="@+id/tv_des"
         android:text="商品详细"
         android:layout_below="@id/tv_title"
@@ -28,6 +31,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:id="@+id/tv_discount"
         android:gravity="right"
         android:text="商品折扣"
@@ -36,6 +40,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:id="@+id/tv_pd"
         android:text="商品生产日期"
         android:layout_below="@id/tv_discount"
@@ -43,6 +48,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:id="@+id/tv_expd"
         android:text="商品有效期"
         android:layout_below="@id/tv_pd"
@@ -53,11 +59,23 @@
         android:layout_below="@id/tv_expd"
         android:id="@+id/rlv"
         />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_add"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:hint="输入数量"
+        android:id="@+id/et_num"
+        android:inputType="number"
+        android:layout_marginBottom="3dp"
+        />
     <Button
         android:layout_width="200dp"
         android:background="#FF0000"
         android:textColor="#FFF"
         android:layout_height="50dp"
+        android:id="@+id/btn_add"
         android:textSize="20dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

@@ -1,20 +1,30 @@
 package com.example.cakeshop.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cakeshop.MainActivity;
 import com.example.cakeshop.R;
+import com.example.cakeshop.adapter.SkuRvAdapter;
 import com.example.cakeshop.api.SpuApi;
+import com.example.cakeshop.dao.CartDao;
 import com.example.cakeshop.pojo.Cart;
 import com.example.cakeshop.pojo.Sku;
 import com.example.cakeshop.pojo.Spu;
 import com.example.cakeshop.pojo.result.ResutlSpuAndSku;
+import com.example.cakeshop.resultType.ResultActivityCode;
+import com.example.cakeshop.resultType.ResultFragmentCode;
 import com.example.cakeshop.utils.AnotherTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -44,8 +54,17 @@ public class SpuInfoActivity extends Activity {
     private TextView tv_pd;
     private TextView tv_expd;
     private RecyclerView rlv;
+    private SkuRvAdapter adapter;
+    private EditText et_num;
 
     private Cart cart;
+    private CartDao cartDao;
+
+    /**
+     * 记录SKU存储
+     */
+    private Integer skuStock;
+    private Double skuPrice;
 
 
     @Override
@@ -58,6 +77,7 @@ public class SpuInfoActivity extends Activity {
 
     private void initUI() {
         cart=new Cart();
+        cartDao=new CartDao(this);
         iv_img=findViewById(R.id.iv_img);
         tv_title=findViewById(R.id.tv_title);
         tv_des=findViewById(R.id.tv_des);
@@ -65,6 +85,7 @@ public class SpuInfoActivity extends Activity {
         tv_pd=findViewById(R.id.tv_pd);
         tv_expd=findViewById(R.id.tv_expd);
         rlv=findViewById(R.id.rlv);
+        et_num=findViewById(R.id.et_num);
         fetchData();
     }
 
@@ -107,7 +128,7 @@ public class SpuInfoActivity extends Activity {
 
     }
 
-    private void binderUiData(Spu spu, List<Sku> skuList) {
+    private void binderUiData(final Spu spu, List<Sku> skuList) {
         String url=spu.getImg();
         new AnotherTask(iv_img).execute(url);
         tv_title.setText(spu.getTitle());
@@ -117,10 +138,25 @@ public class SpuInfoActivity extends Activity {
         tv_expd.setText("有效期截止到："+spu.getExpd());
         cart.setSpu_id(spu.getId());
         cart.setDiscount(spu.getDiscount());
+
+        /**
+         * 先设置折扣 然后返回计算
+         */
+        cart.setPrice(spu.getDiscount());
         cart.setOrigin_price(spu.getPrice());
         cart.setProduct_img(spu.getImg());
         cart.setChecked(true);
         rlv.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new SkuRvAdapter(skuList, this, new SkuRvAdapter.Callback() {
+            @Override
+            public void getStockAndId(Integer id, Integer stock, Double price) {
+                cart.setSku_id(id);
+                cart.setProduct_title(spu.getTitle()+"-"+id);
+                skuStock=stock;
+                skuPrice=price;
+            }
+        });
+        rlv.setAdapter(adapter);
     }
 
 
@@ -129,9 +165,36 @@ public class SpuInfoActivity extends Activity {
      * @param view
      */
     public void rollback(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        setResult(ResultFragmentCode.INDEX,intent);
         this.finish();
     }
 
     public void addCart(View view) {
+        String num = et_num.getText().toString();
+        if (TextUtils.isEmpty(num)) {
+            Toast.makeText(this,"请输入商品数量",Toast.LENGTH_LONG).show();
+        }
+        if(cart.getSku_id() == null) {
+            Toast.makeText(this,"请输入商品规格",Toast.LENGTH_LONG).show();
+        } else {
+            if(Integer.parseInt(num)>skuStock) {
+                Toast.makeText(this,"购买商品不能超过库存量",Toast.LENGTH_LONG).show();
+            } else {
+                cart.setNum(Integer.parseInt(num));
+                /**
+                 * 计算 折扣后的价格
+                 */
+                cart.setPrice(skuPrice * cart.getPrice());
+            }
+            /**
+             * 添加购物车
+             */
+            cartDao.save(cart);
+            Toast.makeText(this,"添加成功",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, MainActivity.class);
+            setResult(ResultFragmentCode.CART,intent);
+            this.finish();
+        }
     }
 }

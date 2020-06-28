@@ -12,9 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cakeshop.MainActivity;
 import com.example.cakeshop.R;
 import com.example.cakeshop.activity.SpuInfoActivity;
 import com.example.cakeshop.pojo.Spu;
+import com.example.cakeshop.resultType.ResultActivityCode;
 import com.example.cakeshop.utils.AnotherTask;
 
 import java.util.List;
@@ -108,7 +110,7 @@ public class SpuRvAdapter extends RecyclerView.Adapter {
     private void toSpuInf(int id) {
         Intent intent = new Intent(context, SpuInfoActivity.class);
         intent.putExtra("spuId",id);
-        context.startActivity(intent);
+        ((MainActivity)context).startActivityForResult(intent, ResultActivityCode.TO_NEXT_ACTIVITY);
     }
 
 

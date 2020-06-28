@@ -14,6 +14,8 @@ import com.example.cakeshop.pojo.Attribute;
 import com.example.cakeshop.pojo.Sku;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,12 +27,27 @@ public class SkuRvAdapter extends RecyclerView.Adapter {
     private List<Sku> list;
     private Context context;
     private LayoutInflater layoutInflater;
+    private Callback callback;
+    private List<Boolean> isChecked;
 
-    public SkuRvAdapter(List<Sku> list, Context context) {
+    public SkuRvAdapter(List<Sku> list, Context context,Callback callback) {
         this.list = list;
         this.context = context;
+        this.callback=callback;
         this.layoutInflater=LayoutInflater.from(context);
+        this.isChecked=new LinkedList<>();
+        initIsChecked();
     }
+
+    /**
+     * 设置全部未选
+     */
+    private void initIsChecked(){
+        for (int i=0;i<list.size();i++ ) {
+            isChecked.add(i,false);
+        }
+    }
+
 
     @NonNull
     @Override
@@ -40,14 +57,32 @@ public class SkuRvAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         MyViewHolder holder1= (MyViewHolder) holder;
-        Sku sku = list.get(position);
+        final Sku sku = list.get(position);
         Gson gson=new Gson();
         Attribute attribute = gson.fromJson(sku.getAttribute_list(), Attribute.class);
-//        String skuInfo=attribute.getSizeTitle();
-//        holder1.tv_skuinfo.setText(skuInfo);
+        String skuInfo="尺寸"+attribute.getSizeTitle()+
+                "| 高度"+attribute.getHeightTitle()+
+                "| 单价"+ sku.getPrice() +"每/个" +
+                "| 库存"+sku.getStock();
+        holder1.tv_skuinfo.setText(skuInfo);
+        if (isChecked.get(position)) {
+            holder1.tv_skuinfo.setBackground(context.getDrawable(R.drawable.selected_border));
+        } else {
+            holder1.tv_skuinfo.setBackground(null);
+        }
+        holder1.tv_skuinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callback.getStockAndId(sku.getId(),sku.getStock(),sku.getPrice());
+                initIsChecked();
+                isChecked.set(position,true);
+                notifyDataSetChanged();
+            }
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -61,6 +96,10 @@ public class SkuRvAdapter extends RecyclerView.Adapter {
             super(itemView);
             tv_skuinfo=itemView.findViewById(R.id.tv_skuinfo);
         }
+    }
+
+    public interface  Callback {
+        void getStockAndId(Integer id, Integer stock,Double price);
     }
 
 }

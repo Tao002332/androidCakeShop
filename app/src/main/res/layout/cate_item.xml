@@ -11,6 +11,7 @@
         android:id="@+id/tv_title"
         android:textSize="30dp"
         android:text="草莓"
+        android:padding="5dp"
         />
 
 </LinearLayout>

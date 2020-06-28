@@ -60,16 +60,13 @@ public class OrderActivity extends Activity {
     private TextView tv_name;
     private TextView tv_phone;
     private TextView tv_address;
-
+    private TextView tv_total;
     private CartDao cartDao;
-
     private SharedPreferences sp;
-
     private List<OrderDetail> list;
-
     private OrderDetailRvAdapter orderDetailRvAdapter;
-
     private boolean checkLogin;
+    private double total;
 
 
     @Override
@@ -89,6 +86,7 @@ public class OrderActivity extends Activity {
        tv_name=findViewById(R.id.tv_name);
        tv_phone=findViewById(R.id.tv_phone);
        tv_address=findViewById(R.id.tv_address);
+       tv_total=findViewById(R.id.tv_total);
        rlv=findViewById(R.id.rlv);
        fetchData();
        orderDetailRvAdapter=new OrderDetailRvAdapter(list,this);
@@ -144,6 +142,8 @@ public class OrderActivity extends Activity {
 
     protected void fetchData() {
        list=cartDao.searchByChecked();
+       total = countTotal();
+       tv_total.setText("总价为：￥"+total);
    }
 
 
@@ -176,12 +176,13 @@ public class OrderActivity extends Activity {
         if(TextUtils.isEmpty(name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(address)) {
             Toast.makeText(this,"姓名手机号地址不能为空",Toast.LENGTH_LONG).show();
         } else {
+
             Order order=new Order();
             order.setUser_id(sp.getInt("id",-1));
             order.setRecevicer(name);
             order.setRecevicer_phone(phone);
             order.setRecevicer_address(address);
-            order.setProduct_money(countTotal());
+            order.setProduct_money(total);
             order.setOrderDetails(list);
             OrderApi.save(order, new Callback() {
                 @Override
