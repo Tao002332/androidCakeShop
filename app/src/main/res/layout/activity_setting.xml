@@ -20,20 +20,25 @@
         android:textSize="25dp"
         android:layout_centerHorizontal="true"
         android:text="设置"/>
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/border"
         android:layout_below="@id/iv_rollback"
-        android:gravity="center">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/border"
-            android:gravity="center"
-            android:text="编辑个人信息"
-            android:onClick="toEditUserInfo"
-            />
-    </LinearLayout>
+        android:gravity="center"
+        android:id="@+id/edit_user_info"
+        android:text="编辑个人信息"
+        android:onClick="toEditUserInfo"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/border"
+        android:layout_below="@id/edit_user_info"
+        android:gravity="center"
+        android:text="修改密码"
+        android:onClick="toChangePassword"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

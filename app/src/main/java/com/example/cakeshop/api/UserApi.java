@@ -74,4 +74,16 @@ public class UserApi {
     }
 
 
+
+    /**
+     * 修改个人 密码
+     * @param user       用户实体
+     * @param callback   回调
+     */
+    public static  void userChangePassword(User user, Callback callback) {
+        String url=GROUP_NAME+API_NAME+"/userChangePassword";
+        HttpUtil.enqueuePut(url,user,callback);
+    }
+
+
 }

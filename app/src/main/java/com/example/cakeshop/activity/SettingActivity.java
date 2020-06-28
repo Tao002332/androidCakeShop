@@ -109,4 +109,9 @@ public class SettingActivity  extends Activity {
         Intent intent = new Intent(this, EditUserActivity.class);
         startActivityForResult(intent, ResultActivityCode.TO_NEXT_ACTIVITY);
     }
+
+    public void toChangePassword(View view) {
+        Intent intent = new Intent(this, EditUserPasswordActivity.class);
+        startActivityForResult(intent, ResultActivityCode.TO_NEXT_ACTIVITY);
+    }
 }

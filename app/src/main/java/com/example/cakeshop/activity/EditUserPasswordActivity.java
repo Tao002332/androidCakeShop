@@ -11,13 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cakeshop.MainActivity;
 import com.example.cakeshop.R;
 import com.example.cakeshop.api.UserApi;
 import com.example.cakeshop.pojo.User;
 import com.example.cakeshop.pojo.result.Result;
 import com.example.cakeshop.resultType.ResultActivityCode;
-import com.example.cakeshop.resultType.ResultFragmentCode;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -34,33 +32,24 @@ import okhttp3.Response;
 /**
  * 编辑用户
  */
-public class EditUserActivity   extends Activity  {
+public class EditUserPasswordActivity extends Activity  {
 
-    private EditText et_name;
-    private TextView tv_email;
+    private EditText et_password;
+    private EditText et_check_password;
     private SharedPreferences sp;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_user);
+        setContentView(R.layout.activity_edit_user_password);
         initUI();
     }
 
     private void initUI() {
-        et_name=findViewById(R.id.et_name);
-        tv_email=findViewById(R.id.tv_email);
-        fetchData();
-    }
-
-
-    private void fetchData() {
+        et_password=findViewById(R.id.et_password);
+        et_check_password=findViewById(R.id.et_check_password);
         sp=getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        String nickname = sp.getString("nickname","");
-        String email = sp.getString("email","");
-        et_name.setText(nickname);
-        tv_email.setText(email);
     }
 
 
@@ -70,14 +59,13 @@ public class EditUserActivity   extends Activity  {
         this.finish();
     }
 
-    public void editUserInfo(View view) {
-        String nickname= et_name.getText().toString().trim();
-        if(TextUtils.isEmpty(nickname)) {
-            Toast.makeText(this,"昵称不能为空",Toast.LENGTH_LONG).show();
-        } else {
+    public void changePassword(View view) {
+        String password= et_password.getText().toString().trim();
+        String checkPassword= et_check_password.getText().toString().trim();
+        if (validate(password,checkPassword)) {
             final User user = new User();
-            user.setNickname(nickname);
-            UserApi.editUserInfo(user, new Callback() {
+            user.setPassword(password);
+            UserApi.userChangePassword(user, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     System.out.println(e.getMessage());
@@ -92,6 +80,29 @@ public class EditUserActivity   extends Activity  {
         }
     }
 
+
+    /**
+     * 验证 密码 确认密码
+     * @param password
+     * @param checkPassword
+     * @return
+     */
+    private Boolean validate( String password, String checkPassword) {
+        if(TextUtils.isEmpty(password)) {
+            Toast.makeText(this,"密码不能为空",Toast.LENGTH_SHORT).show();
+            return  false;
+        }
+        if(TextUtils.isEmpty(checkPassword)) {
+            Toast.makeText(this,"确认密码不能为空",Toast.LENGTH_SHORT).show();
+            return  false;
+        }
+        if(!password.equals(checkPassword) ) {
+            Toast.makeText(this,"确认密码不一致",Toast.LENGTH_SHORT).show();
+            return  false;
+        }
+        return true;
+    }
+
     /**
      * 解析json 获取result 并清空sp
      * @param jsonData
@@ -101,7 +112,7 @@ public class EditUserActivity   extends Activity  {
         Result result = gson.fromJson(jsonData, Result.class);
         if (result.isFlag()) {
             SharedPreferences.Editor edit = sp.edit();
-            edit.putString("nickname",user.getNickname());
+            edit.clear();
             edit.commit();
             Intent intent = new Intent(this, SettingActivity.class);
             setResult(ResultActivityCode.TO_NEXT_ACTIVITY, intent);
