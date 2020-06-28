@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -193,7 +194,11 @@ public class IndexFragment extends Fragment {
      */
     private void binderData(List<ProductSPU> list) {
         spuRvAdapter=new SpuRvAdapter(list,getContext());
-        content_rlv.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (list.size()%2==0) {
+            content_rlv.setLayoutManager(new GridLayoutManager(getContext(),2));
+        } else {
+            content_rlv.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
         content_rlv.setAdapter(spuRvAdapter);
     }
 

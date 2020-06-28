@@ -34,6 +34,9 @@ public class SpuRvAdapter extends RecyclerView.Adapter {
     private Context context;
     private LayoutInflater layoutInflater;
 
+    private static final int VIEW_ONE =1;
+    private static final int VIEW_TWO =2;
+
 
     public SpuRvAdapter(List<ProductSPU> list, Context context) {
         this.list = list;
@@ -41,28 +44,57 @@ public class SpuRvAdapter extends RecyclerView.Adapter {
         this.layoutInflater=LayoutInflater.from(context);
     }
 
+
+    @Override
+    public int getItemViewType(int position) {
+        if (list.size()%2==0) {
+            return VIEW_TWO;
+        } else  {
+            return VIEW_ONE;
+        }
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=layoutInflater.inflate(R.layout.spu_item,parent,false);
-        return new MyViewHodler(view);
+        RecyclerView.ViewHolder holder=null;
+        switch (viewType) {
+            case VIEW_ONE:
+                holder = new MyViewHodler(layoutInflater.inflate(R.layout.spu_item,parent,false));
+                break;
+            case VIEW_TWO:
+                holder = new MyViewHodlerTwo(layoutInflater.inflate(R.layout.spu_item_two,parent,false));
+                break;
+        }
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ProductSPU spu = list.get(position);
-        MyViewHodler holder1= (MyViewHodler) holder;
         String url=spu.getImg();
-        new AnotherTask(holder1.iv_img).execute(url);
-        holder1.tv_title.setText(spu.getTitle());
-        holder1.tv_price.setText("最低价"+spu.getPrice());
-        if (spu.getDiscount()!=1.00) {
-            holder1.tv_discount.setText("折扣中");
-            holder1.tv_discount.setTextColor(Color.RED);
-        } else {
-            holder1.tv_discount.setText("无折扣");
+        switch (getItemViewType(position)) {
+            case VIEW_ONE:
+                MyViewHodler holder1= (MyViewHodler) holder;
+                new AnotherTask(holder1.iv_img).execute(url);
+                holder1.tv_title.setText(spu.getTitle());
+                holder1.tv_price.setText("最低价"+spu.getPrice());
+                if (spu.getDiscount()!=1.00) {
+                    holder1.tv_discount.setText("折扣中");
+                    holder1.tv_discount.setTextColor(Color.RED);
+                } else {
+                    holder1.tv_discount.setText("无折扣");
+                }
+                holder1.tv_pv.setText(spu.getPv()+"人");
+                break;
+            case VIEW_TWO:
+                new AnotherTask(((MyViewHodlerTwo) holder).iv_img).execute(url);
+                ((MyViewHodlerTwo) holder).tv_title.setText(spu.getTitle());
+                break;
         }
-        holder1.tv_pv.setText(spu.getPv()+"人");
+
+
+
     }
 
     @Override
@@ -87,6 +119,19 @@ public class SpuRvAdapter extends RecyclerView.Adapter {
             tv_discount=itemView.findViewById(R.id.tv_discount);
             tv_pv=itemView.findViewById(R.id.tv_pv);
             view=itemView;
+        }
+    }
+
+
+    public class MyViewHodlerTwo extends RecyclerView.ViewHolder {
+
+        ImageView iv_img;
+        TextView tv_title;
+
+        public MyViewHodlerTwo(@NonNull View itemView) {
+            super(itemView);
+            iv_img=itemView.findViewById(R.id.iv_img);
+            tv_title=itemView.findViewById(R.id.tv_title);
         }
     }
 
