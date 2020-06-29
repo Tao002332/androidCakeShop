@@ -186,15 +186,15 @@ public class SpuInfoActivity extends Activity {
                  * 计算 折扣后的价格
                  */
                 cart.setPrice(skuPrice * cart.getPrice());
+                /**
+                 * 添加购物车
+                 */
+                cartDao.save(cart);
+                Toast.makeText(this,"添加成功",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, MainActivity.class);
+                setResult(ResultFragmentCode.CART,intent);
+                this.finish();
             }
-            /**
-             * 添加购物车
-             */
-            cartDao.save(cart);
-            Toast.makeText(this,"添加成功",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, MainActivity.class);
-            setResult(ResultFragmentCode.CART,intent);
-            this.finish();
         }
     }
 }

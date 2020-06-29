@@ -121,6 +121,7 @@ public class CartRvAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 cart.setNum(cart.getNum()+1);
                 cartDao.update(cart);
+                callback.updateTotalAll(countTotal());
                 notifyDataSetChanged();
             }
         });
@@ -146,7 +147,7 @@ public class CartRvAdapter extends RecyclerView.Adapter {
                     builder.setNegativeButton("取消",null);
                     builder.show();
                 }
-
+                callback.updateTotalAll(countTotal());
             }
         });
     }

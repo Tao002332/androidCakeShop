@@ -74,7 +74,7 @@ public class PreInfoManagerActivity extends Activity {
      * @param view
      */
     public void rollback(View view) {
-        this.finish();
+        returnPerInfoActivity();
     }
 
     public void savePreInfo(View view) {

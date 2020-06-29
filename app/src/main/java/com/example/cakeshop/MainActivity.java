@@ -22,9 +22,6 @@ public class MainActivity extends FragmentActivity {
     private FragmentManager fm;
     private FragmentTransaction ft;
     private IndexFragment indexFragment= new IndexFragment();
-    private OrderSearchFragment orderSearchFragment= new OrderSearchFragment();
-    private CartFragment cartFragment= new CartFragment();
-    private UserFragment userFragment= new UserFragment();
 
 
     @Override
@@ -41,9 +38,9 @@ public class MainActivity extends FragmentActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
             case ResultFragmentCode.INDEX: changeFragment(indexFragment);break;
-            case ResultFragmentCode.ORDER_SEARCH: changeFragment(orderSearchFragment);break;
-            case ResultFragmentCode.CART: changeFragment(cartFragment);break;
-            case ResultFragmentCode.USER: changeFragment(userFragment);break;
+            case ResultFragmentCode.ORDER_SEARCH: changeFragment(new OrderSearchFragment());break;
+            case ResultFragmentCode.CART: changeFragment(new CartFragment());break;
+            case ResultFragmentCode.USER: changeFragment(new UserFragment());break;
             default:break;
         }
     }
@@ -72,7 +69,7 @@ public class MainActivity extends FragmentActivity {
      * @param view
      */
     public void toOrderSearch(View view) {
-        changeFragment(orderSearchFragment);
+        changeFragment(new OrderSearchFragment());
     }
 
     /**
@@ -80,7 +77,7 @@ public class MainActivity extends FragmentActivity {
      * @param view
      */
     public void toCart(View view) {
-        changeFragment(cartFragment);
+        changeFragment(new CartFragment());
     }
 
     /**
@@ -88,7 +85,7 @@ public class MainActivity extends FragmentActivity {
      * @param view
      */
     public void toUser(View view) {
-        changeFragment(userFragment);
+        changeFragment(new UserFragment());
     }
 
 }
