@@ -227,7 +227,7 @@ public class OrderActivity extends Activity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    callBackOrderNo(result.getData());
+                    callBackOrderNo((String) result.getData());
                 }
             });
         }

@@ -11,7 +11,7 @@ public class Result {
     private String message;
     private Object data;
 
-    public String getData() {
+    public Object getData() {
         return data.toString();
     }
 
